@@ -30,15 +30,15 @@ export function MicrofrontendContextProvider({ children }) {
       LuigiClient.removeInitListener(initHandle);
       LuigiClient.removeCustomMessageListener(customMessageHandle);
     };
-  }, [context]);
+  }, []);
 
-  function handleContextChanged(newContext) {
+  const handleContextChanged = newContext => {
     // Luigi fires the initListener multiple times with the same value (but different reference) for some reason
     if (JSON.stringify(lastContext.current) !== JSON.stringify(newContext)) {
       lastContext.current = newContext;
       setContext(newContext);
     }
-  }
+  };
 
   function handleCustomMessage({ message, title, type }) {
     type.toLowerCase() === 'error'
